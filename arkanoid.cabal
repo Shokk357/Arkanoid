@@ -1,0 +1,128 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.1.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 577ceba783703f08ad2e7884adc833b5fb619502b613884af3488da096022831
+
+name:           arkanoid
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/Shokk357/arkanoid#readme>
+homepage:       https://github.com/Shokk357/arkanoid#readme
+bug-reports:    https://github.com/Shokk357/arkanoid/issues
+author:         Tsyganov Pavel
+maintainer:     pavcygan17@gmail.com
+copyright:      2019 Tsyganov Pavel
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/Shokk357/arkanoid
+
+library
+  ghc-options:
+      -Wall
+  exposed-modules:
+      Lib
+      DataTypes
+      InitState
+      GraphicRender
+      DataProcessing
+      BD
+  other-modules:
+      Paths_arkanoid
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+     , sdl2
+     , sdl2-image
+     , sdl2-gfx
+     , linear
+     , random
+     , text
+     , sdl2-ttf
+     , containers
+     , binary
+     , network
+     , bytestring
+     , StateVar
+     , sqlite-simple
+  default-language: Haskell2010
+
+executable server
+  main-is: Main.hs
+  other-modules:
+      Paths_arkanoid
+  hs-source-dirs:
+      app/server
+  ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      arkanoid
+    , base >=4.7 && <5
+    , sdl2
+    , sdl2-image
+    , sdl2-gfx
+    , linear
+    , random
+    , text
+    , sdl2-ttf
+    , containers
+    , binary
+    , bytestring
+    , network
+    , async
+    , time
+    , sqlite-simple
+    , deepseq
+  default-language: Haskell2010
+
+executable client
+  main-is: Main.hs
+  other-modules:
+      Paths_arkanoid
+  hs-source-dirs:
+      app/client
+  ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      arkanoid
+    , base >=4.7 && <5
+    , sdl2
+    , sdl2-image
+    , sdl2-gfx
+    , linear
+    , random
+    , text
+    , sdl2-ttf
+    , containers
+    , binary
+    , bytestring
+    , network
+    , sqlite-simple
+  default-language: Haskell2010
+
+test-suite arkanoid-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_arkanoid
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      arkanoid
+    , base >=4.7 && <5
+    , sdl2
+    , sdl2-image
+    , sdl2-gfx
+    , linear
+    , random
+    , text
+    , containers
+  default-language: Haskell2010
