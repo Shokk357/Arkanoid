@@ -133,7 +133,7 @@ duoCreater serverData conDuo = forever $ do
 loopSolo :: Socket -> GameState -> SQ.Connection -> String -> IO ()
 loopSolo socket1 state conSolo userName = do
   sendAll socket1 (encode $ show state)
-  event1 <- fmap (read . decode) $ recv socket1 20000
+  event1 <- fmap ((read :: String -> MyEvents) . decode) $ recv socket1 20000
   let state1 = update event1 (state)
   if (sBallLife state1 /= Dead)
     then
@@ -149,7 +149,7 @@ loopSolo socket1 state conSolo userName = do
 loopFinishSolo :: Socket -> GameState -> Int -> SQ.Connection -> String -> String -> IO ()
 loopFinishSolo socket1 state score conDuo losedName playingName = do
   sendAll socket1 (encode $ show state)
-  event1 <- fmap (read . decode) $ recv socket1 20000
+  event1 <- fmap ((read :: String -> MyEvents) . decode) $ recv socket1 20000
   let state1 = update event1 (state)
   if (sBallLife state1 /= Dead)
     then do
@@ -175,8 +175,8 @@ loop :: Socket -> Socket -> GameState -> SQ.Connection -> String -> String -> IO
 loop socket1 socket2 state conDuo firstPlayerName secondPlayerName = do
   sendAll socket1 (encode $ show state)
   sendAll socket2 (encode $ show (swap state))
-  event1 <- fmap (read . decode) $ recv socket1 20000
-  event2 <- fmap (read . decode) $ recv socket2 20000
+  event1 <- fmap ((read :: String -> MyEvents) . decode) $ recv socket1 20000
+  event2 <- fmap ((read :: String -> MyEvents) . decode) $ recv socket2 20000
   let state1 = update event1 state
   if (sBallLife state1 /= Dead)
     then do
